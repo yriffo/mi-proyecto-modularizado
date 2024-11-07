@@ -2,11 +2,11 @@
 const db = require('../config/database');
 
 // Crear un curso
-exports.createCurso = (req, res) => {
-    const { nombre, descripcion, docente_id } = req.body;
+exports.createCourse = (req, res) => {
+    const { nombre, docente_id } = req.body;
 
-    const sql = 'INSERT INTO cursos (nombre, descripcion, docente_id) VALUES (?, ?, ?)';
-    db.query(sql, [nombre, descripcion, docente_id], (err, result) => {
+    const sql = 'INSERT INTO cursos (nombre, docente_id) VALUES (?, ?)';
+    db.query(sql, [nombre, docente_id], (err, result) => {
         if (err) {
             res.status(500).send('Error al crear el curso');
         } else {
@@ -16,7 +16,7 @@ exports.createCurso = (req, res) => {
 };
 
 // Eliminar un curso
-exports.deleteCurso = (req, res) => {
+exports.deleteCourse = (req, res) => {
     const { id } = req.params;
 
     const sql = 'DELETE FROM cursos WHERE id = ?';
@@ -31,34 +31,22 @@ exports.deleteCurso = (req, res) => {
     });
 };
 
-// Obtener todos los cursos
-exports.getCursos = (req, res) => {
-    const sql = 'SELECT * FROM cursos';
-    db.query(sql, (err, results) => {
-        if (err) {
-            res.status(500).send('Error al obtener los cursos');
-        } else {
-            res.json(results);
-        }
-    });
-};
-
-// Crear un estudiante
-exports.createEstudiante = (req, res) => {
+// Registrar un estudiante
+exports.createStudent = (req, res) => {
     const { nombre, curso_id } = req.body;
 
     const sql = 'INSERT INTO estudiantes (nombre, curso_id) VALUES (?, ?)';
     db.query(sql, [nombre, curso_id], (err, result) => {
         if (err) {
-            res.status(500).send('Error al crear el estudiante');
+            res.status(500).send('Error al registrar el estudiante');
         } else {
-            res.send('Estudiante creado correctamente');
+            res.send('Estudiante registrado correctamente');
         }
     });
 };
 
 // Eliminar un estudiante
-exports.deleteEstudiante = (req, res) => {
+exports.deleteStudent = (req, res) => {
     const { id } = req.params;
 
     const sql = 'DELETE FROM estudiantes WHERE id = ?';
@@ -73,8 +61,20 @@ exports.deleteEstudiante = (req, res) => {
     });
 };
 
+// Obtener todos los cursos
+exports.getCourses = (req, res) => {
+    const sql = 'SELECT * FROM cursos';
+    db.query(sql, (err, results) => {
+        if (err) {
+            res.status(500).send('Error al obtener los cursos');
+        } else {
+            res.json(results);
+        }
+    });
+};
+
 // Obtener todos los estudiantes
-exports.getEstudiantes = (req, res) => {
+exports.getStudents = (req, res) => {
     const sql = 'SELECT * FROM estudiantes';
     db.query(sql, (err, results) => {
         if (err) {
