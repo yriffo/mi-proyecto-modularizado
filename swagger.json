@@ -1,0 +1,70 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "version": "1.0.0",
+      "title": "API de Gestión de Cursos",
+      "description": "Documentación de la API para gestionar cursos, docentes, estudiantes, calificaciones y asistencias"
+    },
+    "host": "localhost:5000",
+    "basePath": "/",
+    "tags": [
+      {
+        "name": "auth",
+        "description": "Autenticación y gestión de usuarios"
+      },
+      {
+        "name": "docentes",
+        "description": "Gestión de docentes"
+      },
+      {
+        "name": "cursos",
+        "description": "Gestión de cursos"
+      }
+    ],
+    "paths": {
+      "/auth/register": {
+        "post": {
+          "tags": ["auth"],
+          "summary": "Registrar un usuario",
+          "description": "Registra un nuevo usuario en el sistema",
+          "parameters": [
+            {
+              "name": "body",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/RegisterRequest"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Usuario registrado correctamente"
+            }
+          }
+        }
+      }
+    },
+    "definitions": {
+      "RegisterRequest": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "docente_id": {
+            "type": "integer"
+          },
+          "rol": {
+            "type": "string",
+            "enum": ["admin", "docente"]
+          }
+        },
+        "required": ["username", "password", "docente_id"]
+      }
+    }
+  }
+  
